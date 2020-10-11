@@ -31,7 +31,7 @@ namespace WindowsFormsApp1
         {
             get
             {
-                if (int.TryParse((length.Text), out int result) && int.Parse(length.Text) > 1)
+                if (int.TryParse((length.Text), out int result) && int.Parse(length.Text) >= 1)
                 {
                     return int.Parse(length.Text);
                 }
@@ -45,7 +45,7 @@ namespace WindowsFormsApp1
         {
             get
             {
-                if (int.TryParse(angle.Text,out int result) && int.Parse(angle.Text) >= 1 && int.Parse(angle.Text) <= 90)
+                if (int.TryParse(angle.Text,out int result) && int.Parse(angle.Text) >= 0)
                 {
                     return int.Parse(angle.Text);
                 }
@@ -59,35 +59,18 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
-        public void FractalDraw(int x, int y, double startangel, double angel, int length, int length_reduction)
-        {
-            double x1, y1, y2, x2;
-            x1 = x + length * Math.Sin(startangel * Math.PI * 2 / 360.0);
-            y1 = y + length * Math.Cos(startangel * Math.PI * 2 / 360.0);
-            y2 = y + length * Math.Cos(startangel * Math.PI * 2 / 360.0) / 2;
-            x2 = x + length * Math.Sin(startangel * Math.PI * 2 / 360.0) / 2;
-            CreateGraphics().DrawLine(new Pen(Color.Black), x, panel1.Height - y, (int)x1,panel1.Height - (int)y1);
-            if (length > 2)
-            {
-                FractalDraw((int)x2, (int)y2, startangel + angel, angel, (int)(length / length_reduction), length_reduction);
-                FractalDraw((int)x1, (int)y1, startangel - angel, angel, (int)(length / length_reduction), length_reduction);
-                FractalDraw((int)x1, (int)y1, startangel + angel, angel, (int)(length / length_reduction), length_reduction);
-            }
-        }
         private void Default_Values_Click(object sender, EventArgs e)
         {
             line_length.Text = "10";
-            length.Text = "6";
+            length.Text = "5";
             angle.Text = "20";
         }
-
         private void DrawPicture_Click(object sender, EventArgs e)
         {
             try
             {
                 panel1.CreateGraphics().Clear(Color.Gray);
-                //FractalDraw(Width / 2, 0, 0, Angle, Begin_Length, Length_Reduction);
-                RuleForFractals rulefor = new RuleForFractals(Length, "X",Angle,Line_Length,panel1.Width / 2,0);
+                RuleForFractals rulefor = new RuleForFractals(Length, "F++F++F++F", Angle,Line_Length,panel1.Width / 2,panel1.Height/2);
                 Console.WriteLine(rulefor.LengthUp());
                 rulefor.Draw(panel1);
             }

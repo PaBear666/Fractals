@@ -16,7 +16,6 @@ namespace WindowsFormsApp1
         private string Rule { get; set; }
         private int Line_Length { get; set; }
         public string[] Levels { get; private set; }
-        Stack<string> position = new Stack<string>();
         private int Angle { get; set; }
         private int StartAngle { get; set; }
         private double X { get; set; }
@@ -39,46 +38,37 @@ namespace WindowsFormsApp1
             Line_Length = line_length;
             StartAngle = 0;
             Angle = angle;
-            Length = length;
+            Length = length + 1;
             Axiom = axiom;
             Levels = new string[Length];
             Levels[0] = axiom;
         }
         public string LengthUp()
         {
-            int i = 0;
-            while (i < Length - 1)
+            
+            for(int i = 0; i < Length - 1;i++)
             {
                 foreach (char letter in Levels[i])
                 {
                     switch (letter)
                     {
                         case 'F':
-                            Levels[i + 1] = Levels[i + 1] + "FF";
+                            Levels[i + 1] = Levels[i + 1] + "-F++F-";
                             break;
                         case 'X':
                             Levels[i + 1] = Levels[i + 1] + "F[+X]F[-X]+X";
                             break;
-                        case '[':
-                            Levels[i + 1] = Levels[i + 1] + "[";
-                            break;
-                        case ']':
-                            Levels[i + 1] = Levels[i + 1] + "]";
-                            break;
-                        case '+':
-                            Levels[i + 1] = Levels[i + 1] + "+";
-                            break;
-                        case '-':
-                            Levels[i + 1] = Levels[i + 1] + "-";
+                        default:
+                            Levels[i + 1] = Levels[i + 1] + letter;
                             break;
                     }
                 }
-                i++;
             }
             return Levels[Length - 1];
         }
         public void Draw(Panel form) 
-        { 
+        {
+            Stack<string> position = new Stack<string>();
             foreach (char letter in Levels[Length - 1]) 
             {
                 switch (letter)
@@ -89,9 +79,6 @@ namespace WindowsFormsApp1
                         form.CreateGraphics().DrawLine(new Pen(Color.White), (int)X, (int)(form.Height - Y), (int)x1, form.Height - (int)y1);
                         X = x1;
                         Y = y1;
-                        break;
-                    case 'X':
-                        
                         break;
                     case '+':
                         StartAngle += Angle;
@@ -107,6 +94,8 @@ namespace WindowsFormsApp1
                         X = double.Parse(words[0]);
                         Y = double.Parse(words[1]);
                         StartAngle = int.Parse(words[2]);
+                        break;
+                    default:
                         break;
                 }
             }
