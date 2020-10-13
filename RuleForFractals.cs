@@ -52,11 +52,11 @@ namespace WindowsFormsApp1
                 {
                     switch (letter)
                     {
-                        case 'F':
-                            Levels[i + 1] = Levels[i + 1] + "-F++F-";
-                            break;
                         case 'X':
-                            Levels[i + 1] = Levels[i + 1] + "F[+X]F[-X]+X";
+                            Levels[i + 1] = Levels[i + 1] + "-YF+XFX+FY-";
+                            break;
+                        case 'Y':
+                            Levels[i + 1] = Levels[i + 1] + "+XF-YFY-FX+";
                             break;
                         default:
                             Levels[i + 1] = Levels[i + 1] + letter;
@@ -69,7 +69,7 @@ namespace WindowsFormsApp1
         public void Draw(Panel form) 
         {
             Stack<string> position = new Stack<string>();
-            foreach (char letter in Levels[Length - 1]) 
+            foreach (char letter in LengthUp()) 
             {
                 switch (letter)
                 {

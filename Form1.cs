@@ -70,8 +70,7 @@ namespace WindowsFormsApp1
             try
             {
                 panel1.CreateGraphics().Clear(Color.Gray);
-                RuleForFractals rulefor = new RuleForFractals(Length, "F++F++F++F", Angle,Line_Length,panel1.Width / 2,panel1.Height/2);
-                Console.WriteLine(rulefor.LengthUp());
+                RuleForFractals rulefor = new RuleForFractals(Length, "X", Angle,Line_Length,panel1.Width / 2,panel1.Height/2);
                 rulefor.Draw(panel1);
             }
             catch
